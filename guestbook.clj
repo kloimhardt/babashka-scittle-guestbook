@@ -5,11 +5,11 @@
          '[org.httpkit.server :as srv]
          '[hiccup.core :as hp])
 
-(import 'java.time.format.DateTimeFormatter
-        'java.time.LocalDateTime
-        'java.io.ByteArrayOutputStream)
+(import 'java.io.ByteArrayOutputStream)
 
 (def port 8083)
+
+(def filename "messages.txt")
 
 (defn html [cljs-code]
   (hp/html
@@ -30,42 +30,26 @@
       [:div {:id "content"}]
       [:script {:type "application/x-scittle"} cljs-code]]]))
 
-(defn date [] (LocalDateTime/now))
-
-(def formatter (DateTimeFormatter/ofPattern "yyyy-MM-dd HH:mm:ss"))
-
-(def filename "m.txt")
-
-(defn readfile []
-  (if (.exists (io/file filename))
-    (edn/read-string (slurp filename))
-    {:messages []}))
-
-(defn db-save-message! [params]
-  (->> formatter
-       (.format (date))
-       (assoc params :timestamp)
-       (update (readfile) :messages conj)
-       pr-str
-       (spit filename)))
+(defn home-save-message! [req]
+  (let [params (transit/read (transit/reader (:body req) :json))
+        text (prn-str (assoc params :timestamp (java.util.Date.)))]
+    (spit filename text :append true)
+    "post success!"))
 
 (defn db-get-messages []
-  (:messages (readfile)))
-
-(defn home-save-message! [req]
-  (let [params (transit/read (transit/reader (:body req) :json))]
-    (db-save-message! params)
-    "post success!"))
+  (if (.exists (io/file filename))
+    (edn/read-string (str "[" (slurp filename) "]"))
+    []))
 
 (defn home-message-list [_]
   (let [out (ByteArrayOutputStream. 4096)
         writer (transit/writer out :json)]
-    (transit/write writer {:messages (vec (db-get-messages))})
+    (transit/write writer {:messages (db-get-messages)})
     (.toString out)))
 
 (def cmd-line-args *command-line-args*)
 
-(defn home-page [request] (html (slurp (first cmd-line-args))))
+(defn home-page [_request] (html (slurp (first cmd-line-args))))
 
 (defn home-routes [{:keys [:request-method :uri] :as req}]
   (case [request-method uri]
