@@ -6,6 +6,10 @@
 ; We make no guarantees that this code is fit for any purpose.
 ; Visit http://www.pragmaticprogrammer.com/titles/dswdcloj3 for more book information.
 ;---
+; zip archive retrieved from the "Resources" section of
+; https://pragprog.com/titles/dswdcloj3/web-development-with-clojure-third-edition/
+; file: guestbook-reagent/src/cljs/guestbook/core.cljs
+
 (ns guestbook.core
   (:require [reagent.core :as r]
             [reagent.dom :as dom]
@@ -35,7 +39,7 @@
 ;
 (defn send-message! [fields errors messages]
   (POST "/message"
-        {:format :json
+        {;; :format :json
          :headers
          {"Accept" "application/transit+json"
           ;;"x-csrf-token" (.-value (.getElementById js/document "token"))
