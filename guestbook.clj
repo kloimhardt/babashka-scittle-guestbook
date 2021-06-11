@@ -11,9 +11,9 @@
 
 (def port 8083)
 
-(def bb-web-js (slurp "bb_web.js"))
+#_(def bb-web-js (slurp "bb_web.js"))
 
-(defn html [_]
+(defn html [cljs-code]
   (str
     (hp/html
       [:html
@@ -40,7 +40,7 @@
       (set! (.-my_alert js/window) my-alert)"]
         [:button {:onclick  "my_alert()"} "hu"]
         [:script {:type "application/x-scittle"}
-         (slurp "core.cljs")]]])))
+         cljs-code]]])))
 
 #_(defn html [cljs-code]
   (println (html7 nil))
