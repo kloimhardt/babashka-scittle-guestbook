@@ -11,61 +11,24 @@
 
 (def port 8083)
 
-#_(def bb-web-js (slurp "bb_web.js"))
-
 (defn html [cljs-code]
-  (str
-    (hp/html
-      [:html
-       [:head
-        [:meta {:charset "UTF-8"}]
-        [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
-        [:link {:rel "shortcut icon" :href "data:,"}]
-        [:link {:rel "apple-touch-icon" :href "data:,"}]
-        [:link {:rel "stylesheet" :href "https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"}]
-        [:script {:crossorigin nil :src "https://unpkg.com/react@17/umd/react.production.min.js"}]
-        [:script {:crossorigin nil :src "https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"}]
-
-        [:script {:src "https://borkdude.github.io/scittle/js/scittle.js"  :type "application/javascript"}]
-        [:script {:src "https://borkdude.github.io/scittle/js/scittle.cljs-ajax.js" :type "application/javascript"}]
-        [:script {:src "https://borkdude.github.io/scittle/js/scittle.reagent.js" :type "application/javascript"}]
-
-        [:title "Guestbook"]]
-       [:body
-        [:div {:id "content"}]
-        [:script {:type "application/x-scittle"}
-          "(defn my-alert []
-       (js/alert \"You clicked!\"))
-      ;; export function to use from JavaScript:
-      (set! (.-my_alert js/window) my-alert)"]
-        [:button {:onclick  "my_alert()"} "hu"]
-        [:script {:type "application/x-scittle"}
-         cljs-code]]])))
-
-#_(defn html [cljs-code]
-  (println (html7 nil))
-  (str "
-  <!DOCTYPE html>
-  <html>
-  <head>
-  <meta charset=\"UTF-8\">
-  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-  <link rel=\"shortcut icon\" href=\"data:,\">
-  <link rel=\"icon\" href=\"data:,\">
-  <link rel=\"apple-touch-icon\" href=\"data:,\">
-  <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css\">
-  <script>"
-       bb-web-js
-       "</script>
-  <title>Guestbook 1</title>
-  </head>
-  <body>
-  <div id=\"cljs-app\">"
-       cljs-code
-       "</div>
-  <script>bb_web.app.run(\"cljs-app\")</script>
-  </body>
-  </html>"))
+  (hp/html
+    [:html
+     [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
+      [:link {:rel "shortcut icon" :href "data:,"}]
+      [:link {:rel "apple-touch-icon" :href "data:,"}]
+      [:link {:rel "stylesheet" :href "https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"}]
+      [:script {:crossorigin nil :src "https://unpkg.com/react@17/umd/react.production.min.js"}]
+      [:script {:crossorigin nil :src "https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"}]
+      [:script {:src "https://borkdude.github.io/scittle/js/scittle.js" :type "application/javascript"}]
+      [:script {:src "https://borkdude.github.io/scittle/js/scittle.cljs-ajax.js" :type "application/javascript"}]
+      [:script {:src "https://borkdude.github.io/scittle/js/scittle.reagent.js" :type "application/javascript"}]
+      [:title "Guestbook"]]
+     [:body
+      [:div {:id "content"}]
+      [:script {:type "application/x-scittle"} cljs-code]]]))
 
 (defn date [] (LocalDateTime/now))
 
