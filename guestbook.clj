@@ -49,7 +49,8 @@
 
 (def cmd-line-args *command-line-args*)
 
-(defn home-page [_request] (html (slurp (first cmd-line-args))))
+(defn home-page [_request]
+  (html (slurp (or (first cmd-line-args) "guestbook.cljs"))))
 
 (defn home-routes [{:keys [:request-method :uri] :as req}]
   (case [request-method uri]
