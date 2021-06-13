@@ -2,7 +2,7 @@
 
 [Luminus](https://pragprog.com/titles/dswdcloj3/web-development-with-clojure-third-edition/) guestbook example for [babashka](https://github.com/babashka/babashka) + [scittle](https://github.com/borkdude/scittle)
 
-With babashka installed, run `bb guestbook.clj` and a minimal Clojure web-abb opens up in your browser. Most useful for small or local web applications and learning purposes (i.e. is a good [avocado project](https://lambdaisland.com/blog/2021-06-04-clojure-beginners-just-like-vegans-searching-for-good-cheese)). Recommended babashka version is >0.4.6.
+With babashka installed, run `bb guestbook.clj` and a minimal Clojure web-abb opens up in your browser. Most useful for small or local web applications and learning purposes (i.e. is a good [avocado project](https://lambdaisland.com/blog/2021-06-04-clojure-beginners-just-like-vegans-searching-for-good-cheese)). Recommended babashka version is 0.4.6 or later.
 
 ## Helpful comments from experts
 
