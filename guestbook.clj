@@ -11,7 +11,7 @@
 
 (def filename "messages.txt")
 
-(defn html [cljs-code]
+(defn html [cljs-file]
   (hp/html
     [:html
      [:head
@@ -28,7 +28,7 @@
       [:title "Guestbook"]]
      [:body
       [:div {:id "content"}]
-      [:script {:type "application/x-scittle"} cljs-code]]]))
+      [:script {:type "application/x-scittle" :src cljs-file}]]]))
 
 (defn home-save-message! [req]
   (let [params (transit/read (transit/reader (:body req) :json))
@@ -47,20 +47,20 @@
     (transit/write writer {:messages (db-get-messages)})
     (.toString out)))
 
-(def cmd-line-args *command-line-args*)
-
-(defn home-page [_request]
-  (html (slurp (or (first cmd-line-args) "guestbook.cljs"))))
+(defn home-page [_request cljs-file]
+  (html cljs-file))
 
 (defn home-routes [{:keys [:request-method :uri] :as req}]
   (case [request-method uri]
-    [:get "/"] {:body (home-page req)
+    [:get "/"] {:body (home-page req "guestbook.cljs")
                 :status 200}
     [:get "/messages"] {:headers {"Content-type" "application/transit+json"}
                         :body (home-message-list req)
                         :status 200}
     [:post "/message"] {:body (home-save-message! req)
-                        :status 200}))
+                        :status 200}
+    [:get "/guestbook.cljs"] {:body (slurp"guestbook.cljs")
+                             :status 200}))
 
 (defn core-http-server []
   (srv/run-server home-routes {:port port}))
