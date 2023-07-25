@@ -22,9 +22,9 @@
       [:link {:rel "stylesheet" :href "https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"}]
       [:script {:crossorigin nil :src "https://unpkg.com/react@17/umd/react.production.min.js"}]
       [:script {:crossorigin nil :src "https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"}]
-      [:script {:src "https://cdn.jsdelivr.net/gh/borkdude/scittle@0.0.1/js/scittle.js" :type "application/javascript"}]
-      [:script {:src "https://cdn.jsdelivr.net/gh/borkdude/scittle@0.0.1/js/scittle.reagent.js" :type "application/javascript"}]
-      [:script {:src "https://cdn.jsdelivr.net/gh/borkdude/scittle@0.0.1/js/scittle.cljs-ajax.js" :type "application/javascript"}]
+      [:script {:src "https://cdn.jsdelivr.net/npm/scittle@0.6.15/dist/scittle.js" :type "application/javascript"}]
+      [:script {:src "https://cdn.jsdelivr.net/npm/scittle@0.6.15/dist/scittle.reagent.js" :type "application/javascript"}]
+      [:script {:src "https://cdn.jsdelivr.net/npm/scittle@0.6.15/dist/scittle.cljs-ajax.js" :type "application/javascript"}]
       [:title "Guestbook"]]
      [:body
       [:div {:id "content"}]
